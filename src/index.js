@@ -1,5 +1,10 @@
 "use strict";
 
 import "./styles.css";
+import { TodoItem, TodoList } from "./todo-classes.js";
 
-console.log("Hello todos");
+const defaultList = new TodoList();
+defaultList.addItem("bake bread");
+defaultList.addItem("email Pat", "ask for bean recipes");
+
+console.log(defaultList.todos);
