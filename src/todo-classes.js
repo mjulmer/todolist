@@ -13,11 +13,18 @@ class TodoItem {
 }
 
 class TodoList {
+  name = "";
+  id;
   todos = [];
-  idCount = 0;
+  itemIdCount = 0;
+
+  constructor(name, id) {
+    this.name = name;
+    this.id = id;
+  }
 
   addItem(name, description) {
-    this.todos.push(new TodoItem(this.idCount++, name, description));
+    this.todos.push(new TodoItem(this.itemIdCount++, name, description));
   }
 
   removeItem(id) {
