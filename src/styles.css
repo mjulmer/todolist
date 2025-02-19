@@ -1,0 +1,16 @@
+body {
+  background-color: black;
+  color: burlywood;
+  display: grid;
+  gap: 3rem;
+  grid-template-columns: 1fr 2fr;
+}
+
+.container {
+  border: solid 2px burlywood;
+  border-radius: 5px;
+}
+
+.dailies {
+  background-color: rebeccapurple;
+}
