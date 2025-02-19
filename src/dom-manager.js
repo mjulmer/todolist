@@ -13,11 +13,27 @@ function updateListUi(list) {
 
 function createNewTodoUi(todo) {
   const todoDiv = document.createElement("div");
-  todoDiv.className = "todo-item todo-item-" + todo.id;
+  todoDiv.className = "todo-item";
+  todoDiv.id = "todo-item-" + todo.id;
 
-  const title = document.createElement("p");
+  const completedButton = document.createElement("button");
+  completedButton.className = "todo-button";
+  completedButton.addEventListener("click", (event) =>
+    onTodoClick(event, todo)
+  );
+
+  const title = document.createElement("span");
   title.textContent = todo.name;
 
+  todoDiv.appendChild(completedButton);
   todoDiv.appendChild(title);
   return todoDiv;
+}
+
+function onTodoClick(event, todo) {
+  const todoDiv = event.target.parentElement;
+  todoDiv.className === "todo-item"
+    ? (todoDiv.className = "todo-item-completed")
+    : (todoDiv.className = "todo-item");
+  todo.completed = !todo.completed;
 }

@@ -11,6 +11,23 @@ body {
   border-radius: 5px;
 }
 
-.dailies {
-  background-color: rebeccapurple;
+.todo-item,
+.todo-item-completed {
+  padding: 0.25em;
+}
+
+.todo-item-completed {
+  color: rgb(114, 114, 114);
+  text-decoration: line-through;
+}
+
+.todo-button {
+  width: 1em;
+  height: 1em;
+  margin-right: 1em;
+  background-color: aqua;
+}
+
+.todo-item-completed .todo-button {
+  background-color: blueviolet;
 }
