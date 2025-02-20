@@ -1,9 +1,41 @@
+:root.dark {
+  --background-color: black;
+  --text-color: #867c68;
+}
+
+:root.light {
+  --background-color: #eed0b8;
+  --text-color: black;
+}
+
 body {
-  background-color: black;
-  color: burlywood;
+  background-color: var(--background-color, black);
+  color: var(--text-color, white);
   display: grid;
   gap: 3rem;
   grid-template-columns: 1fr 2fr;
+  grid-template-rows: 50px 1fr;
+}
+
+#header {
+  grid-column: 1 / -1;
+}
+
+#color-theme-toggle {
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  background-color: var(--background-color, black);
+}
+
+#color-theme-toggle.dark {
+  /* background-color: black; */
+  background-image: url("./icons/white-balance-sunny.svg");
+}
+
+#color-theme-toggle.light {
+  /* background-color: white; */
+  background-image: url("./icons/weather-night.svg");
 }
 
 .container {

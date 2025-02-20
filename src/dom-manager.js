@@ -1,6 +1,26 @@
 "use strict";
 
-export { updateListUi };
+export { populateInitialUi, updateListUi };
+
+function populateInitialUi() {
+  // In practice, this would be read from settings / cookie / browser default.
+  // But this is a personal project and the functionality I really want is
+  // "don't blind me when I'm coding at night but also support light mode that
+  // doesn't turn off every refresh". So...
+  // TODO: read this as a preference once suporting local storage
+  const isDarkModeDefault = true;
+  const root = document.documentElement;
+  root.className = isDarkModeDefault ? "dark" : "light";
+  const themeButton = document.querySelector("#color-theme-toggle");
+  themeButton.className = "dark";
+
+  themeButton.addEventListener("click", (event) => {
+    event.target.className === "dark"
+      ? (event.target.className = "light")
+      : (event.target.className = "dark");
+    root.className = root.className === "dark" ? "light" : "dark";
+  });
+}
 
 function updateListUi(list) {
   const listNode = document.querySelector("#list-" + list.id);

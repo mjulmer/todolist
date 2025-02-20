@@ -4,6 +4,7 @@ class TodoItem {
   id;
   name;
   description;
+  completed = false;
 
   constructor(id, name, description) {
     this.id = id;
@@ -35,17 +36,3 @@ class TodoList {
     }
   }
 }
-
-// individual todo items
-// - recurring or not
-// - should carry over days or not
-// - tags
-// - title, description, dueDate and priority
-// - streak for daily recurring items
-// - unique ID (same for all instances of a recurring item)
-
-// affordances:
-//  - edit
-//  - delete
-//  - mark complete
-//  -
