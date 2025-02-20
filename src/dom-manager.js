@@ -8,17 +8,20 @@ function populateInitialUi() {
   // "don't blind me when I'm coding at night but also support light mode that
   // doesn't turn off every refresh". So...
   // TODO: read this as a preference once suporting local storage
+  const darkModeClass = "dark";
+  const lightModeClass = "light";
   const isDarkModeDefault = true;
   const root = document.documentElement;
-  root.className = isDarkModeDefault ? "dark" : "light";
+  root.className = isDarkModeDefault ? darkModeClass : lightModeClass;
   const themeButton = document.querySelector("#color-theme-toggle");
-  themeButton.className = "dark";
+  themeButton.className = darkModeClass;
 
   themeButton.addEventListener("click", (event) => {
-    event.target.className === "dark"
-      ? (event.target.className = "light")
-      : (event.target.className = "dark");
-    root.className = root.className === "dark" ? "light" : "dark";
+    event.target.className === darkModeClass
+      ? (event.target.className = lightModeClass)
+      : (event.target.className = darkModeClass);
+    root.className =
+      root.className === darkModeClass ? lightModeClass : darkModeClass;
   });
 }
 

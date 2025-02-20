@@ -15,10 +15,14 @@ body {
   gap: 3rem;
   grid-template-columns: 1fr 2fr;
   grid-template-rows: 50px 1fr;
+  font-family: "Verdana", "Geneva", "Tahoma", sans-serif;
 }
 
 #header {
   grid-column: 1 / -1;
+  display: flex;
+  justify-content: end;
+  padding: 0.5rem;
 }
 
 #color-theme-toggle {
@@ -41,6 +45,7 @@ body {
 .container {
   border: solid 2px burlywood;
   border-radius: 5px;
+  padding: 1rem 0.5rem;
 }
 
 .todo-item,
@@ -57,9 +62,11 @@ body {
   width: 1em;
   height: 1em;
   margin-right: 1em;
-  background-color: aqua;
+  border-radius: 5px;
+  border: none;
+  background-color: #e9f0f0;
 }
 
 .todo-item-completed .todo-button {
-  background-color: blueviolet;
+  background-color: rgb(73, 15, 167);
 }
