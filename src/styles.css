@@ -50,6 +50,8 @@ ul {
   border: solid 2px burlywood;
   border-radius: 5px;
   padding: 0.5rem 0.8rem;
+  display: flex;
+  flex-direction: column;
   position: relative;
 }
 
@@ -83,4 +85,13 @@ ul {
 
 .todo-item-completed .todo-button {
   background-color: rgb(73, 15, 167);
+}
+
+.new-todo-button {
+  width: fit-content;
+  padding: 0.5em 1em;
+  margin-top: clamp(1em, 5em, 25vh);
+  margin-bottom: 0.5rem;
+  margin-right: 0.5rem;
+  align-self: last baseline;
 }
