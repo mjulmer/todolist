@@ -42,10 +42,24 @@ body {
   background-image: url("./icons/weather-night.svg");
 }
 
+ul {
+  padding: 0;
+}
+
 .container {
   border: solid 2px burlywood;
   border-radius: 5px;
-  padding: 1rem 0.5rem;
+  padding: 0.5rem 0.8rem;
+  position: relative;
+}
+
+.list-label {
+  position: absolute;
+  top: -1.5rem;
+  background-color: var(--background-color, black);
+  width: min-content;
+  padding: 0 0.5rem;
+  box-sizing: border-box;
 }
 
 .todo-item,

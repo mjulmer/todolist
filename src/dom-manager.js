@@ -26,6 +26,10 @@ function populateInitialUi() {
 }
 
 function updateListUi(list) {
+  if (list.id != "dailies") {
+    const label = document.querySelector("#secondary-list-label");
+    label.textContent = list.name;
+  }
   const listNode = document.querySelector("#list-" + list.id);
   listNode.replaceChildren();
   for (const todo of list.todos) {
