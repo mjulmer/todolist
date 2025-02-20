@@ -1,11 +1,17 @@
 :root.dark {
   --background-color: black;
   --text-color: #867c68;
+  --pencil-icon: url("./icons/pencil-tan.svg");
+  --broom-icon: url("./icons/broom-tan.svg");
+  --swap-icon: url("./icons/swap-horizontal-tan.svg");
 }
 
 :root.light {
   --background-color: #eed0b8;
   --text-color: black;
+  --pencil-icon: url("./icons/pencil.svg");
+  --broom-icon: url("./icons/broom.svg");
+  --swap-icon: url("./icons/swap-horizontal.svg");
 }
 
 body {
@@ -57,12 +63,11 @@ ul {
 }
 
 .list-label {
-  position: absolute;
-  top: -1.5rem;
   background-color: var(--background-color, black);
   width: min-content;
   padding: 0 0.5rem;
   box-sizing: border-box;
+  margin-right: auto;
 }
 
 .todo-item,
@@ -95,4 +100,36 @@ ul {
   margin-bottom: 0.5rem;
   margin-right: 0.5rem;
   align-self: last baseline;
+}
+
+.list-options {
+  display: flex;
+  width: 90%;
+  height: 2rem;
+  gap: 0.5rem;
+  position: absolute;
+  top: -1rem;
+  align-items: center;
+}
+
+.list-options button {
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid burlywood;
+  border-radius: 15px;
+  background-color: var(--background-color, black);
+  background-size: 80%;
+  background-position: center;
+}
+
+#edit-list {
+  background-image: var(--pencil-icon);
+}
+
+#swap-list {
+  background-image: var(--swap-icon);
+}
+
+#clean-list {
+  background-image: var(--broom-icon);
 }
