@@ -25,8 +25,8 @@ function populateInitialUi() {
   });
 }
 
-function updateListUi(list) {
-  if (list.id != "dailies") {
+function updateListUi(list, onClickNewTodoButton) {
+  if (list.id !== "dailies") {
     const label = document.querySelector("#secondary-list-label");
     label.textContent = list.name;
   }
@@ -36,6 +36,12 @@ function updateListUi(list) {
     // TODO: this is going to need some tweaks to support reordering
     listNode.appendChild(createNewTodoUi(todo));
   }
+
+  const newTodoButton =
+    list.id === "dailies"
+      ? document.querySelector(".dailies .new-todo-button")
+      : document.querySelector(".secondary-list .new-todo-button");
+  newTodoButton.addEventListener("click", onClickNewTodoButton);
 }
 
 function createNewTodoUi(todo) {

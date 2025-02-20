@@ -14,5 +14,11 @@ const defaultList = new TodoList("Default", "dropzone");
 defaultList.addItem("bake bread");
 defaultList.addItem("email Pat", "ask for bean recipes");
 
-updateListUi(dailiesList);
-updateListUi(defaultList);
+updateListUi(dailiesList, () => {
+  dailiesList.addItem("new item");
+  updateListUi(dailiesList);
+});
+updateListUi(defaultList, () => {
+  defaultList.addItem("new item 2");
+  updateListUi(defaultList);
+});
