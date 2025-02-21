@@ -16,7 +16,7 @@ populateInitialUi(
   },
   (listId, todoName, todoDescription) => {
     lists[listId].addItem(todoName, todoDescription);
-    updateListUi(defaultList);
+    updateListUi(lists[listId]);
   }
 );
 
