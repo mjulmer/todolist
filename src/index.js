@@ -4,7 +4,21 @@ import "./styles.css";
 import { TodoItem, TodoList } from "./todo-classes.js";
 import { populateInitialUi, updateListUi } from "./dom-manager.js";
 
-populateInitialUi();
+// The dailies list is "special" and not included here. This only includes
+// lists that can be swapped out in the right panel.
+// Lists are keyed by their ID
+const lists = {};
+
+populateInitialUi(
+  (todoName) => {
+    dailiesList.addItem(todoName);
+    updateListUi(dailiesList);
+  },
+  (listId, todoName, todoDescription) => {
+    lists[listId].addItem(todoName, todoDescription);
+    updateListUi(defaultList);
+  }
+);
 
 const dailiesList = new TodoList("Dailies", "dailies");
 dailiesList.addItem("anki");
@@ -13,12 +27,7 @@ dailiesList.addItem("brush teeth");
 const defaultList = new TodoList("Default", "dropzone");
 defaultList.addItem("bake bread");
 defaultList.addItem("email Pat", "ask for bean recipes");
+lists["dropzone"] = defaultList;
 
-updateListUi(dailiesList, () => {
-  dailiesList.addItem("new item");
-  updateListUi(dailiesList);
-});
-updateListUi(defaultList, () => {
-  defaultList.addItem("new item 2");
-  updateListUi(defaultList);
-});
+updateListUi(dailiesList);
+updateListUi(defaultList);

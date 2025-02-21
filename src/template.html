@@ -26,5 +26,18 @@
       <ul id="list-dropzone"></ul>
       <button class="new-todo-button">Add item</button>
     </div>
+    <dialog class="newDailyDialog">
+      <form id="new-daily-form" action="/fake/server/action" method="post">
+        <input type="text" id="dailyName" placeholder="Name" />
+        <button type="submit" id="new-daily-submit">Add new item</button>
+      </form>
+    </dialog>
+    <dialog class="newTodoDialog">
+      <form id="new-todo-form" action="/fake/server/action" method="post">
+        <input type="text" id="todoName" placeholder="Name" />
+        <input type="text" id="todoDescription" placeholder="Description" />
+        <button type="submit" id="new-todo-submit">Add new item</button>
+      </form>
+    </dialog>
   </body>
 </html>
