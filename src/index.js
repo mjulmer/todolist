@@ -20,6 +20,10 @@ populateInitialUi(
   (listId, todoName, todoDescription) => {
     lists[listId].addItem(todoName, todoDescription);
     updateListUi(lists[listId]);
+  },
+  (listId) => {
+    lists[listId].removeCompletedItems();
+    updateListUi(lists[listId]);
   }
 );
 

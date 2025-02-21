@@ -35,6 +35,10 @@ class TodoList {
       }
     }
   }
+
+  removeCompletedItems() {
+    this.todos = this.todos.filter((it) => !it.completed);
+  }
 }
 
 function parseTodoListFromJson(jsonObject) {

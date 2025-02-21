@@ -6,7 +6,8 @@ export { populateInitialUi, updateListUi };
 function populateInitialUi(
   onClickSwap,
   onClickNewDailyButton,
-  onClickNewTodoButton
+  onClickNewTodoButton,
+  cleanCompletedItems
 ) {
   const darkModeClass = "dark";
   const lightModeClass = "light";
@@ -39,6 +40,13 @@ function populateInitialUi(
       onClickSwap();
       document.querySelector(".swapListDialog").close();
     });
+
+  const cleanButton = document.querySelector("#clean-list");
+  cleanButton.addEventListener("click", () => {
+    cleanCompletedItems(
+      document.querySelector(".secondary-list").getAttribute("data-id")
+    );
+  });
 
   const newDailyButton = document.querySelector(".dailies .new-todo-button");
   const newDailyDialog = document.querySelector(".newDailyDialog");
