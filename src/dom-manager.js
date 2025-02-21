@@ -24,6 +24,22 @@ function populateInitialUi(onClickNewDailyButton, onClickNewTodoButton) {
       root.className === darkModeClass ? lightModeClass : darkModeClass;
   });
 
+  const newDailyButton = document.querySelector(".dailies .new-todo-button");
+  const newDailyDialog = document.querySelector(".newDailyDialog");
+  newDailyButton.addEventListener("click", () => {
+    document.querySelector("#new-daily-form").reset();
+    newDailyDialog.showModal();
+  });
+
+  const newTodoButton = document.querySelector(
+    ".secondary-list .new-todo-button"
+  );
+  const newTodoDialog = document.querySelector(".newTodoDialog");
+  newTodoButton.addEventListener("click", () => {
+    document.querySelector("#new-todo-form").reset();
+    newTodoDialog.showModal();
+  });
+
   const newDailySubmitButton = document.querySelector("#new-daily-submit");
   newDailySubmitButton.addEventListener("click", (event) => {
     event.preventDefault();
@@ -46,40 +62,20 @@ function populateInitialUi(onClickNewDailyButton, onClickNewTodoButton) {
 }
 
 function updateListUi(list) {
-  list.id === "dailies" ? updateDailiesUi() : updateNonDailiesUi(list);
+  if (list.id !== "dailies") {
+    const label = document.querySelector("#secondary-list-label");
+    label.textContent = list.name;
+    document.querySelector(".secondary-list").setAttribute("data-id", list.id);
+    document.querySelector(".secondary-list ul").id = "list-" + list.id;
+  }
 
+  // This makes the function work for both dailies and non-dailies lists.
   const listNode = document.querySelector("#list-" + list.id);
   listNode.replaceChildren();
   for (const todo of list.todos) {
     // TODO: this is going to need some tweaks to support reordering
     listNode.appendChild(createNewTodoUi(todo));
   }
-}
-
-function updateDailiesUi() {
-  const newTodoButton = document.querySelector(".dailies .new-todo-button");
-  const newTodoDialog = document.querySelector(".newDailyDialog");
-  newTodoButton.addEventListener("click", () => {
-    document.querySelector("#new-daily-form").reset();
-    newTodoDialog.showModal();
-  });
-}
-
-function updateNonDailiesUi(list) {
-  const label = document.querySelector("#secondary-list-label");
-  label.textContent = list.name;
-  document.querySelector(".secondary-list").setAttribute("data-id", list.id);
-
-  const newTodoButton = document.querySelector(
-    ".secondary-list .new-todo-button"
-  );
-
-  const newTodoDialog = document.querySelector(".newTodoDialog");
-
-  newTodoButton.addEventListener("click", () => {
-    document.querySelector("#new-todo-form").reset();
-    newTodoDialog.showModal();
-  });
 }
 
 function createNewTodoUi(todo) {
