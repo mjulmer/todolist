@@ -97,7 +97,9 @@ function updateListUi(list) {
 
 function createNewTodoUi(todo) {
   const todoDiv = document.createElement("div");
-  todoDiv.className = "todo-item";
+  todo.completed
+    ? (todoDiv.className = "todo-item-completed")
+    : (todoDiv.className = "todo-item");
   todoDiv.id = "todo-item-" + todo.id;
 
   const completedButton = document.createElement("button");
