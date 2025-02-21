@@ -2,7 +2,11 @@
 
 export { populateInitialUi, updateListUi };
 
-function populateInitialUi(onClickNewDailyButton, onClickNewTodoButton) {
+function populateInitialUi(
+  onClickSwap,
+  onClickNewDailyButton,
+  onClickNewTodoButton
+) {
   // In practice, this would be read from settings / cookie / browser default.
   // But this is a personal project and the functionality I really want is
   // "don't blind me when I'm coding at night but also support light mode that
@@ -23,6 +27,18 @@ function populateInitialUi(onClickNewDailyButton, onClickNewTodoButton) {
     root.className =
       root.className === darkModeClass ? lightModeClass : darkModeClass;
   });
+
+  const swapButton = document.querySelector("#swap-list");
+  const swapListDialog = document.querySelector(".swapListDialog");
+  swapButton.addEventListener("click", () => {
+    swapListDialog.showModal();
+  });
+  document
+    .querySelector(".swapListDialog button")
+    .addEventListener("click", () => {
+      onClickSwap();
+      document.querySelector(".swapListDialog").close();
+    });
 
   const newDailyButton = document.querySelector(".dailies .new-todo-button");
   const newDailyDialog = document.querySelector(".newDailyDialog");
@@ -66,11 +82,12 @@ function updateListUi(list) {
     const label = document.querySelector("#secondary-list-label");
     label.textContent = list.name;
     document.querySelector(".secondary-list").setAttribute("data-id", list.id);
-    document.querySelector(".secondary-list ul").id = "list-" + list.id;
+  } else {
+    document.querySelector(".dailies").setAttribute("data-id", list.id);
   }
 
   // This makes the function work for both dailies and non-dailies lists.
-  const listNode = document.querySelector("#list-" + list.id);
+  const listNode = document.querySelector('div[data-id="' + list.id + '"] ul');
   listNode.replaceChildren();
   for (const todo of list.todos) {
     // TODO: this is going to need some tweaks to support reordering
