@@ -22,5 +22,9 @@ function getColorTheme() {
 }
 
 function setColorTheme(theme) {
+  if (theme !== "light" && theme !== "dark") {
+    console.error(`Tried to store invalid value ${theme} for color theme`);
+    return;
+  }
   localStorage.setItem(colorThemeKey, theme);
 }
