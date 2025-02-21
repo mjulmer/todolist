@@ -1,5 +1,6 @@
 "use strict";
 
+import * as StorageManager from "./storage-manager.js";
 export { populateInitialUi, updateListUi };
 
 function populateInitialUi(
@@ -7,25 +8,24 @@ function populateInitialUi(
   onClickNewDailyButton,
   onClickNewTodoButton
 ) {
-  // In practice, this would be read from settings / cookie / browser default.
-  // But this is a personal project and the functionality I really want is
-  // "don't blind me when I'm coding at night but also support light mode that
-  // doesn't turn off every refresh". So...
-  // TODO: read this as a preference once suporting local storage
   const darkModeClass = "dark";
   const lightModeClass = "light";
-  const isDarkModeDefault = true;
   const root = document.documentElement;
-  root.className = isDarkModeDefault ? darkModeClass : lightModeClass;
+  const theme = StorageManager.getColorTheme();
+  root.className = theme;
   const themeButton = document.querySelector("#color-theme-toggle");
-  themeButton.className = darkModeClass;
+  themeButton.className = theme;
 
   themeButton.addEventListener("click", (event) => {
-    event.target.className === darkModeClass
-      ? (event.target.className = lightModeClass)
-      : (event.target.className = darkModeClass);
-    root.className =
-      root.className === darkModeClass ? lightModeClass : darkModeClass;
+    if (event.target.className === darkModeClass) {
+      event.target.className = lightModeClass;
+      root.className = lightModeClass;
+      StorageManager.setColorTheme(lightModeClass);
+    } else {
+      event.target.className = darkModeClass;
+      root.className = darkModeClass;
+      StorageManager.setColorTheme(darkModeClass);
+    }
   });
 
   const swapButton = document.querySelector("#swap-list");
