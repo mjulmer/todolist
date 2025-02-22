@@ -1,11 +1,15 @@
 "use strict";
 
+import { TodoItem, TodoList } from "./todo-classes.js";
+
 export {
   isStoragePopulated,
   getColorTheme,
   setColorTheme,
   getListIds,
+  getList,
   updateListofListIds,
+  updateList,
 };
 
 /**
@@ -53,9 +57,12 @@ function getListIds() {
   return JSON.parse(localStorage.getItem(listIdsKey));
 }
 
-// returns a list ITEM with todos fully "hydrated"
-// add a note to docstring about todos
-function getList(listID) {}
+/** Returns a "fully hydrated" list item containing todos and metadata.*/
+function getList(listId) {
+  return parseTodoListFromJson(
+    JSON.parse(localStorage.getItem(listKeyPrefix + listId))
+  );
+}
 
 /** Takes an object containing all lists (not including the dailies list)
  * and updates the list of list IDs in local storage.
@@ -64,8 +71,14 @@ function updateListofListIds(lists) {
   localStorage.setItem(listIdsKey, Object.keys(lists));
 }
 
-// on any list or todo change
-function updateList(list) {}
+/** Update the list representation in storage.
+ *
+ * This should be called on any update to the list, including changes
+ * to individual todos (like a change in their completion status).
+ */
+function updateList(list) {
+  localStorage.setItem(listKeyPrefix + list.id, JSON.stringify(list));
+}
 
 function parseTodoListFromJson(jsonObject) {
   const list = new TodoList(jsonObject.name, jsonObject.description);
