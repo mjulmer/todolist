@@ -1,4 +1,4 @@
-export { TodoItem, TodoList, parseTodoListFromJson };
+export { TodoItem, TodoList };
 
 class TodoItem {
   id;
@@ -39,25 +39,4 @@ class TodoList {
   removeCompletedItems() {
     this.todos = this.todos.filter((it) => !it.completed);
   }
-}
-
-function parseTodoListFromJson(jsonObject) {
-  const list = new TodoList(jsonObject.name, jsonObject.description);
-  list.id = jsonObject.id;
-  list.itemIdCount = jsonObject.itemIdCount;
-
-  for (const todoIndex in jsonObject.todos) {
-    list.todos.push(parseTodoItemFromJson(jsonObject.todos[todoIndex]));
-  }
-  return list;
-}
-
-function parseTodoItemFromJson(jsonObject) {
-  const todo = new TodoItem(
-    jsonObject.id,
-    jsonObject.name,
-    jsonObject.description
-  );
-  todo.completed = jsonObject.completed;
-  return todo;
 }

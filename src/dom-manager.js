@@ -86,6 +86,10 @@ function populateInitialUi(
 }
 
 function updateListUi(list) {
+  if (list === undefined) {
+    log.error("updateListUi called on undefined list.");
+    return;
+  }
   if (list.id !== "dailies") {
     const label = document.querySelector("#secondary-list-label");
     label.textContent = list.name;
@@ -99,11 +103,11 @@ function updateListUi(list) {
   listNode.replaceChildren();
   for (const todo of list.todos) {
     // TODO: this is going to need some tweaks to support reordering
-    listNode.appendChild(createNewTodoUi(todo));
+    listNode.appendChild(createNewTodoUi(todo, list));
   }
 }
 
-function createNewTodoUi(todo) {
+function createNewTodoUi(todo, list) {
   const todoDiv = document.createElement("div");
   todo.completed
     ? (todoDiv.className = "todo-item-completed")
@@ -113,7 +117,7 @@ function createNewTodoUi(todo) {
   const completedButton = document.createElement("button");
   completedButton.className = "todo-button";
   completedButton.addEventListener("click", (event) =>
-    onTodoClick(event, todo)
+    onTodoClick(event, todo, list)
   );
 
   const title = document.createElement("span");
@@ -124,10 +128,14 @@ function createNewTodoUi(todo) {
   return todoDiv;
 }
 
-function onTodoClick(event, todo) {
+function onTodoClick(event, todo, list) {
   const todoDiv = event.target.parentElement;
   todoDiv.className === "todo-item"
     ? (todoDiv.className = "todo-item-completed")
     : (todoDiv.className = "todo-item");
   todo.completed = !todo.completed;
+  // I know this is gross and bad and poor separation of concerns :(
+  // If I had stored the todos separately from the start (in the "database"),
+  // then I at LEAST wouldn't have to pass the list through to here.
+  StorageManager.updateList(list);
 }

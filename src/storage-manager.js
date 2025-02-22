@@ -68,7 +68,7 @@ function getList(listId) {
  * and updates the list of list IDs in local storage.
  */
 function updateListofListIds(lists) {
-  localStorage.setItem(listIdsKey, Object.keys(lists));
+  localStorage.setItem(listIdsKey, JSON.stringify(Object.keys(lists)));
 }
 
 /** Update the list representation in storage.
