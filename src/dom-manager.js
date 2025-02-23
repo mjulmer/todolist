@@ -1,8 +1,9 @@
 "use strict";
 
 import * as StorageManager from "./storage-manager.js";
-export { populateInitialUi, updateListUi };
+export { populateInitialUi, updateListUi, initializeListSidebar };
 
+// TODO: refactor this into multiple methods called from index.js
 function populateInitialUi(
   onClickSwap,
   onClickNewDailyButton,
@@ -29,6 +30,7 @@ function populateInitialUi(
     }
   });
 
+  // TODO: remove swap affordance and onclick
   const swapButton = document.querySelector("#swap-list");
   const swapListDialog = document.querySelector(".swapListDialog");
   swapButton.addEventListener("click", () => {
@@ -83,6 +85,19 @@ function populateInitialUi(
     );
     document.querySelector(".newTodoDialog").close();
   });
+}
+
+function initializeListSidebar(lists) {
+  const listUl = document.querySelector(".sidebar ul");
+  for (const list in lists) {
+    const listElement = document.createElement("button");
+    listElement.textContent = lists[list].name;
+    listElement.setAttribute("data-id", lists[list].id);
+    listElement.addEventListener("click", () => {
+      updateListUi(lists[list]);
+    });
+    listUl.appendChild(listElement);
+  }
 }
 
 function updateListUi(list) {

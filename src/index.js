@@ -42,9 +42,7 @@ populateInitialUi(
   }
 );
 
-if (!initializeStateFromStorage()) {
-  initializeFirstTimeState();
-}
+initializeListSidebar(lists);
 
 // initializeWithTrainingWheelsCode();
 

@@ -9,22 +9,30 @@
     <div id="header">
       <button id="color-theme-toggle" title="Toggle color theme"></button>
     </div>
-    <div class="dailies container">
-      <div class="list-options">
-        <span class="list-label">Dailies</span>
+    <div class="flex">
+      <div class="dailies container">
+        <div class="list-options">
+          <span class="list-label">Dailies</span>
+        </div>
+        <ul id="list-dailies"></ul>
+        <button class="new-todo-button">Add item</button>
       </div>
-      <ul id="list-dailies"></ul>
-      <button class="new-todo-button">Add item</button>
-    </div>
-    <div class="secondary-list container">
-      <div class="list-options">
-        <span id="secondary-list-label" class="list-label"></span>
-        <button id="edit-list" title="Edit list details"></button>
-        <button id="swap-list" title="Display different list"></button>
-        <button id="clean-list" title="Remove completed items"></button>
+      <div class="secondary-list container">
+        <div class="list-options">
+          <span id="secondary-list-label" class="list-label"></span>
+          <button id="edit-list" title="Edit list details"></button>
+          <button id="swap-list" title="Display different list"></button>
+          <button id="clean-list" title="Remove completed items"></button>
+        </div>
+        <ul id="list-dropzone"></ul>
+        <button class="new-todo-button">Add item</button>
       </div>
-      <ul id="list-dropzone"></ul>
-      <button class="new-todo-button">Add item</button>
+      <div class="sidebar container">
+        <div class="list-options">
+          <span class="list-label">Lists</span>
+        </div>
+        <ul></ul>
+      </div>
     </div>
     <dialog class="newDailyDialog">
       <form id="new-daily-form" action="/fake/server/action" method="post">
