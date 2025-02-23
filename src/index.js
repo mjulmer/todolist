@@ -19,7 +19,7 @@ if (!initializeStateFromStorage()) {
 DomManager.setColorTheme(StorageManager.getColorTheme(), (theme) =>
   StorageManager.setColorTheme(theme)
 );
-DomManager.populateInitialUi(
+DomManager.setNewItemClickHandlers(
   (todoName) => {
     dailiesList.addItem(todoName);
     StorageManager.updateList(dailiesList);
@@ -29,13 +29,13 @@ DomManager.populateInitialUi(
     lists[listId].addItem(todoName, todoDescription);
     StorageManager.updateList(lists[listId]);
     DomManager.updateListUi(lists[listId]);
-  },
-  (listId) => {
-    lists[listId].removeCompletedItems();
-    StorageManager.updateList(lists[listId]);
-    DomManager.updateListUi(lists[listId]);
   }
 );
+DomManager.setCleanButtonClickHandler((listId) => {
+  lists[listId].removeCompletedItems();
+  StorageManager.updateList(lists[listId]);
+  DomManager.updateListUi(lists[listId]);
+});
 
 DomManager.initializeListSidebar(lists);
 

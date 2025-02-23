@@ -3,24 +3,34 @@
 import * as StorageManager from "./storage-manager.js";
 export {
   setColorTheme,
-  populateInitialUi,
+  setNewItemClickHandlers,
+  setCleanButtonClickHandler,
   updateListUi,
   initializeListSidebar,
 };
 
-// TODO: refactor this into multiple methods called from index.js
-function populateInitialUi(
-  onClickNewDailyButton,
-  onClickNewTodoButton,
-  cleanCompletedItems
-) {
-  const cleanButton = document.querySelector("#clean-list");
-  cleanButton.addEventListener("click", () => {
-    cleanCompletedItems(
-      document.querySelector(".secondary-list").getAttribute("data-id")
-    );
-  });
+function setColorTheme(theme, onThemeChange) {
+  const darkModeClass = "dark";
+  const lightModeClass = "light";
+  const root = document.documentElement;
+  root.className = theme;
+  const themeButton = document.querySelector("#color-theme-toggle");
+  themeButton.className = theme;
 
+  themeButton.addEventListener("click", (event) => {
+    if (event.target.className === darkModeClass) {
+      event.target.className = lightModeClass;
+      root.className = lightModeClass;
+      onThemeChange(lightModeClass);
+    } else {
+      event.target.className = darkModeClass;
+      root.className = darkModeClass;
+      onThemeChange(darkModeClass);
+    }
+  });
+}
+
+function setNewItemClickHandlers(onClickNewDailyButton, onClickNewTodoButton) {
   const newDailyButton = document.querySelector(".dailies .new-todo-button");
   const newDailyDialog = document.querySelector(".newDailyDialog");
   newDailyButton.addEventListener("click", () => {
@@ -58,24 +68,12 @@ function populateInitialUi(
   });
 }
 
-function setColorTheme(theme, onThemeChange) {
-  const darkModeClass = "dark";
-  const lightModeClass = "light";
-  const root = document.documentElement;
-  root.className = theme;
-  const themeButton = document.querySelector("#color-theme-toggle");
-  themeButton.className = theme;
-
-  themeButton.addEventListener("click", (event) => {
-    if (event.target.className === darkModeClass) {
-      event.target.className = lightModeClass;
-      root.className = lightModeClass;
-      onThemeChange(lightModeClass);
-    } else {
-      event.target.className = darkModeClass;
-      root.className = darkModeClass;
-      onThemeChange(darkModeClass);
-    }
+function setCleanButtonClickHandler(cleanCompletedItems) {
+  const cleanButton = document.querySelector("#clean-list");
+  cleanButton.addEventListener("click", () => {
+    cleanCompletedItems(
+      document.querySelector(".secondary-list").getAttribute("data-id")
+    );
   });
 }
 
