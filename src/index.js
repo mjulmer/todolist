@@ -16,6 +16,9 @@ if (!initializeStateFromStorage()) {
   initializeFirstTimeState();
 }
 
+DomManager.setColorTheme(StorageManager.getColorTheme(), (theme) =>
+  StorageManager.setColorTheme(theme)
+);
 DomManager.populateInitialUi(
   (todoName) => {
     dailiesList.addItem(todoName);

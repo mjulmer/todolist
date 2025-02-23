@@ -1,7 +1,12 @@
 "use strict";
 
 import * as StorageManager from "./storage-manager.js";
-export { populateInitialUi, updateListUi, initializeListSidebar };
+export {
+  setColorTheme,
+  populateInitialUi,
+  updateListUi,
+  initializeListSidebar,
+};
 
 // TODO: refactor this into multiple methods called from index.js
 function populateInitialUi(
@@ -9,26 +14,6 @@ function populateInitialUi(
   onClickNewTodoButton,
   cleanCompletedItems
 ) {
-  const darkModeClass = "dark";
-  const lightModeClass = "light";
-  const root = document.documentElement;
-  const theme = StorageManager.getColorTheme();
-  root.className = theme;
-  const themeButton = document.querySelector("#color-theme-toggle");
-  themeButton.className = theme;
-
-  themeButton.addEventListener("click", (event) => {
-    if (event.target.className === darkModeClass) {
-      event.target.className = lightModeClass;
-      root.className = lightModeClass;
-      StorageManager.setColorTheme(lightModeClass);
-    } else {
-      event.target.className = darkModeClass;
-      root.className = darkModeClass;
-      StorageManager.setColorTheme(darkModeClass);
-    }
-  });
-
   const cleanButton = document.querySelector("#clean-list");
   cleanButton.addEventListener("click", () => {
     cleanCompletedItems(
@@ -70,6 +55,27 @@ function populateInitialUi(
       document.querySelector("#todoDescription").value
     );
     document.querySelector(".newTodoDialog").close();
+  });
+}
+
+function setColorTheme(theme, onThemeChange) {
+  const darkModeClass = "dark";
+  const lightModeClass = "light";
+  const root = document.documentElement;
+  root.className = theme;
+  const themeButton = document.querySelector("#color-theme-toggle");
+  themeButton.className = theme;
+
+  themeButton.addEventListener("click", (event) => {
+    if (event.target.className === darkModeClass) {
+      event.target.className = lightModeClass;
+      root.className = lightModeClass;
+      onThemeChange(lightModeClass);
+    } else {
+      event.target.className = darkModeClass;
+      root.className = darkModeClass;
+      onThemeChange(darkModeClass);
+    }
   });
 }
 
