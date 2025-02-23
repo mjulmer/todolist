@@ -2,13 +2,24 @@
 
 import "./styles.css";
 import { TodoList } from "./todo-classes.js";
-import { populateInitialUi, updateListUi } from "./dom-manager.js";
+// TODO: import these as a glob
+import {
+  populateInitialUi,
+  updateListUi,
+  initializeListSidebar,
+} from "./dom-manager.js";
 import * as StorageManager from "./storage-manager.js";
 
 // The dailies list is "special" and not included here. This only includes
 // lists that can be swapped out in the right panel.
 // Lists are keyed by their ID
 const lists = {};
+const dailiesId = "dailies";
+let dailiesList;
+
+if (!initializeStateFromStorage()) {
+  initializeFirstTimeState();
+}
 
 populateInitialUi(
   () => {
@@ -53,13 +64,14 @@ function initializeStateFromStorage() {
       updateListUi(list);
     }
   }
-  updateListUi(StorageManager.getList("dailies"));
+  dailiesList = StorageManager.getList(dailiesId);
+  updateListUi(dailiesList);
   return true;
 }
 
 /** If local storage is empty, show new user UI. */
 function initializeFirstTimeState() {
-  const dailiesList = new TodoList("Dailies", "dailies");
+  dailiesList = new TodoList("Dailies", dailiesId);
   const defaultList = new TodoList("Default", "dropzone");
   lists["dropzone"] = defaultList;
   updateListUi(dailiesList);
@@ -69,7 +81,7 @@ function initializeFirstTimeState() {
 // For development, so it's easy to restore a "played-with" state
 // after deleting local storage during testing
 function initializeWithTrainingWheelsCode() {
-  const dailiesList = new TodoList("Dailies", "dailies");
+  dailiesList = new TodoList("Dailies", dailiesId);
   dailiesList.addItem("anki");
   dailiesList.addItem("brush teeth");
 
