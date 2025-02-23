@@ -5,41 +5,17 @@ import { TodoList } from "./todo-classes.js";
 import * as DomManager from "./dom-manager.js";
 import * as StorageManager from "./storage-manager.js";
 
+const dailiesId = "dailies";
+let dailiesList;
 // The dailies list is "special" and not included here. This only includes
 // lists that can be swapped out in the right panel.
 // Lists are keyed by their ID
 const lists = {};
-const dailiesId = "dailies";
-let dailiesList;
 
 if (!initializeStateFromStorage()) {
   initializeFirstTimeState();
 }
-
-DomManager.setColorTheme(StorageManager.getColorTheme(), (theme) =>
-  StorageManager.setColorTheme(theme)
-);
-DomManager.setNewItemClickHandlers(
-  (todoName) => {
-    dailiesList.addItem(todoName);
-    StorageManager.updateList(dailiesList);
-    DomManager.updateListUi(dailiesList);
-  },
-  (listId, todoName, todoDescription) => {
-    lists[listId].addItem(todoName, todoDescription);
-    StorageManager.updateList(lists[listId]);
-    DomManager.updateListUi(lists[listId]);
-  }
-);
-DomManager.setCleanButtonClickHandler((listId) => {
-  lists[listId].removeCompletedItems();
-  StorageManager.updateList(lists[listId]);
-  DomManager.updateListUi(lists[listId]);
-});
-
-DomManager.initializeListSidebar(lists);
-
-// initializeWithTrainingWheelsCode();
+initializeUi();
 
 function initializeStateFromStorage() {
   if (!StorageManager.isStoragePopulated) {
@@ -71,6 +47,30 @@ function initializeFirstTimeState() {
   DomManager.updateListUi(defaultList);
 }
 
+function initializeUi() {
+  DomManager.setColorTheme(StorageManager.getColorTheme(), (theme) =>
+    StorageManager.setColorTheme(theme)
+  );
+  DomManager.setNewItemClickHandlers(
+    (todoName) => {
+      dailiesList.addItem(todoName);
+      StorageManager.updateList(dailiesList);
+      DomManager.updateListUi(dailiesList);
+    },
+    (listId, todoName, todoDescription) => {
+      lists[listId].addItem(todoName, todoDescription);
+      StorageManager.updateList(lists[listId]);
+      DomManager.updateListUi(lists[listId]);
+    }
+  );
+  DomManager.setCleanButtonClickHandler((listId) => {
+    lists[listId].removeCompletedItems();
+    StorageManager.updateList(lists[listId]);
+    DomManager.updateListUi(lists[listId]);
+  });
+  DomManager.initializeListSidebar(lists);
+}
+
 // For development, so it's easy to restore a "played-with" state
 // after deleting local storage during testing
 function initializeWithTrainingWheelsCode() {
@@ -90,11 +90,8 @@ function initializeWithTrainingWheelsCode() {
   projectList.addItem("(P1) add ability for users to add new lists");
   projectList.addItem("(P3) app priority system");
   projectList.addItem("(P3) add ability to reorder items");
-  lists["1"] = projectList;
-
-  DomManager.updateListUi(dailiesList);
-  DomManager.updateListUi(defaultList);
-
+  const dailiesId = "dailies";
+  let dailiesList;
   StorageManager.updateListofListIds(lists);
   StorageManager.updateList(defaultList);
   StorageManager.updateList(dailiesList);
