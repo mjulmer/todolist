@@ -3,11 +3,7 @@
 import "./styles.css";
 import { TodoList } from "./todo-classes.js";
 // TODO: import these as a glob
-import {
-  populateInitialUi,
-  updateListUi,
-  initializeListSidebar,
-} from "./dom-manager.js";
+import * as DomManager from "./dom-manager.js";
 import * as StorageManager from "./storage-manager.js";
 
 // The dailies list is "special" and not included here. This only includes
@@ -21,28 +17,28 @@ if (!initializeStateFromStorage()) {
   initializeFirstTimeState();
 }
 
-populateInitialUi(
+DomManager.populateInitialUi(
   () => {
-    updateListUi(lists["1"]);
+    DomManager.updateListUi(lists["1"]);
   },
   (todoName) => {
     dailiesList.addItem(todoName);
     StorageManager.updateList(dailiesList);
-    updateListUi(dailiesList);
+    DomManager.updateListUi(dailiesList);
   },
   (listId, todoName, todoDescription) => {
     lists[listId].addItem(todoName, todoDescription);
     StorageManager.updateList(lists[listId]);
-    updateListUi(lists[listId]);
+    DomManager.updateListUi(lists[listId]);
   },
   (listId) => {
     lists[listId].removeCompletedItems();
     StorageManager.updateList(lists[listId]);
-    updateListUi(lists[listId]);
+    DomManager.updateListUi(lists[listId]);
   }
 );
 
-initializeListSidebar(lists);
+DomManager.initializeListSidebar(lists);
 
 // initializeWithTrainingWheelsCode();
 
@@ -59,11 +55,11 @@ function initializeStateFromStorage() {
     const list = StorageManager.getList(listId);
     if (list) {
       lists[listId] = list;
-      updateListUi(list);
+      DomManager.updateListUi(list);
     }
   }
   dailiesList = StorageManager.getList(dailiesId);
-  updateListUi(dailiesList);
+  DomManager.updateListUi(dailiesList);
   return true;
 }
 
@@ -72,8 +68,8 @@ function initializeFirstTimeState() {
   dailiesList = new TodoList("Dailies", dailiesId);
   const defaultList = new TodoList("Default", "dropzone");
   lists["dropzone"] = defaultList;
-  updateListUi(dailiesList);
-  updateListUi(defaultList);
+  DomManager.updateListUi(dailiesList);
+  DomManager.updateListUi(defaultList);
 }
 
 // For development, so it's easy to restore a "played-with" state
@@ -97,8 +93,8 @@ function initializeWithTrainingWheelsCode() {
   projectList.addItem("(P3) add ability to reorder items");
   lists["1"] = projectList;
 
-  updateListUi(dailiesList);
-  updateListUi(defaultList);
+  DomManager.updateListUi(dailiesList);
+  DomManager.updateListUi(defaultList);
 
   StorageManager.updateListofListIds(lists);
   StorageManager.updateList(defaultList);
