@@ -5,7 +5,6 @@ export { populateInitialUi, updateListUi, initializeListSidebar };
 
 // TODO: refactor this into multiple methods called from index.js
 function populateInitialUi(
-  onClickSwap,
   onClickNewDailyButton,
   onClickNewTodoButton,
   cleanCompletedItems
@@ -29,19 +28,6 @@ function populateInitialUi(
       StorageManager.setColorTheme(darkModeClass);
     }
   });
-
-  // TODO: remove swap affordance and onclick
-  const swapButton = document.querySelector("#swap-list");
-  const swapListDialog = document.querySelector(".swapListDialog");
-  swapButton.addEventListener("click", () => {
-    swapListDialog.showModal();
-  });
-  document
-    .querySelector(".swapListDialog button")
-    .addEventListener("click", () => {
-      onClickSwap();
-      document.querySelector(".swapListDialog").close();
-    });
 
   const cleanButton = document.querySelector("#clean-list");
   cleanButton.addEventListener("click", () => {

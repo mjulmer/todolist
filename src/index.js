@@ -2,7 +2,6 @@
 
 import "./styles.css";
 import { TodoList } from "./todo-classes.js";
-// TODO: import these as a glob
 import * as DomManager from "./dom-manager.js";
 import * as StorageManager from "./storage-manager.js";
 
@@ -18,9 +17,6 @@ if (!initializeStateFromStorage()) {
 }
 
 DomManager.populateInitialUi(
-  () => {
-    DomManager.updateListUi(lists["1"]);
-  },
   (todoName) => {
     dailiesList.addItem(todoName);
     StorageManager.updateList(dailiesList);

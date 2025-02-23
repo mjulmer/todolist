@@ -3,7 +3,6 @@
   --text-color: #867c68;
   --pencil-icon: url("./icons/pencil-tan.svg");
   --broom-icon: url("./icons/broom-tan.svg");
-  --swap-icon: url("./icons/swap-horizontal-tan.svg");
 }
 
 :root.light {
@@ -11,7 +10,6 @@
   --text-color: black;
   --pencil-icon: url("./icons/pencil.svg");
   --broom-icon: url("./icons/broom.svg");
-  --swap-icon: url("./icons/swap-horizontal.svg");
 }
 
 body {
@@ -147,10 +145,6 @@ ul {
 
 #edit-list {
   background-image: var(--pencil-icon);
-}
-
-#swap-list {
-  background-image: var(--swap-icon);
 }
 
 #clean-list {
