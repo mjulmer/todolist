@@ -82,7 +82,6 @@ function setEditButtonClickHandler(lists) {
   const listLabelContainer = document.querySelector(
     ".secondary-list .list-options"
   );
-  // TODO there's a bug when clicking the clean button when edit is active
   const editButton = document.querySelector("#edit-list");
   editButton.addEventListener("click", () => {
     if (editButton.className === "selected") {
@@ -128,7 +127,11 @@ function updateListUi(list) {
   }
   if (list.id !== "dailies") {
     const label = document.querySelector("#secondary-list-label");
-    label.textContent = list.name;
+    // The label will not be present in edit mode, and will be updated
+    // when the user leaves edit mode.
+    if (label !== null) {
+      label.textContent = list.name;
+    }
     document.querySelector(".secondary-list").setAttribute("data-id", list.id);
   } else {
     document.querySelector(".dailies").setAttribute("data-id", list.id);
