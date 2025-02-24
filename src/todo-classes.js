@@ -16,7 +16,7 @@ class TodoItem {
 class TodoList {
   name = "";
   id;
-  todos = [];
+  todos = {};
   itemIdCount = 0;
 
   constructor(name, id) {
@@ -25,15 +25,12 @@ class TodoList {
   }
 
   addItem(name, description) {
-    this.todos.push(new TodoItem(this.itemIdCount++, name, description));
+    const newId = this.itemIdCount++;
+    this.todos[newId] = new TodoItem(newId, name, description);
   }
 
   removeItem(id) {
-    for (let i = 0; i < this.todos.length; i++) {
-      if (this.todos[i].id == id) {
-        this.todos.splice(i, 1);
-      }
-    }
+    delete this.todos[id];
   }
 
   removeCompletedItems() {

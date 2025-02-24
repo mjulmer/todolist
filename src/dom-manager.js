@@ -137,12 +137,13 @@ function updateListUi(list) {
   // This makes the function work for both dailies and non-dailies lists.
   const listNode = document.querySelector('div[data-id="' + list.id + '"] ul');
   listNode.replaceChildren();
-  for (const todo of list.todos) {
+  for (const todoId in list.todos) {
     // TODO: this is going to need some tweaks to support reordering
-    listNode.appendChild(createNewTodoUi(todo, list));
+    listNode.appendChild(createNewTodoUi(list.todos[todoId], list));
   }
 }
 
+// issue is that keys aren't strings and you sometimes query strings
 function createNewTodoUi(todo, list) {
   const todoDiv = document.createElement("div");
   todo.completed

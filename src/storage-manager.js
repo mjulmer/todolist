@@ -86,7 +86,7 @@ function parseTodoListFromJson(jsonObject) {
   list.itemIdCount = jsonObject.itemIdCount;
 
   for (const todoIndex in jsonObject.todos) {
-    list.todos.push(parseTodoItemFromJson(jsonObject.todos[todoIndex]));
+    list.todos[todoIndex] = parseTodoItemFromJson(jsonObject.todos[todoIndex]);
   }
   return list;
 }

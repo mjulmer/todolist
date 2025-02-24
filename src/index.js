@@ -12,6 +12,8 @@ let dailiesList;
 // Lists are keyed by their ID
 const lists = {};
 
+// initializeWithTrainingWheelsCode();
+
 if (!initializeStateFromStorage()) {
   initializeFirstTimeState();
 }
@@ -86,13 +88,14 @@ function initializeWithTrainingWheelsCode() {
 
   // TODO: Fix issue where text doesn't "unwrap" when its container has room
   const projectList = new TodoList("Todo project", "1");
-  projectList.addItem("(P1) add modal for new todo input");
+  projectList.addItem("(P1) Add ability to delete items");
   projectList.addItem("(P1) Support showing description for non-daily itmes");
   projectList.addItem("(P1) add ability for users to add new lists");
   projectList.addItem("(P3) app priority system");
   projectList.addItem("(P3) add ability to reorder items");
-  const dailiesId = "dailies";
-  let dailiesList;
+  projectList.addItem("(P1) Implement 'edit list' button");
+  lists[projectList.id] = projectList;
+
   StorageManager.updateListofListIds(lists);
   StorageManager.updateList(defaultList);
   StorageManager.updateList(dailiesList);
