@@ -1,15 +1,19 @@
 :root.dark {
   --background-color: black;
   --text-color: #867c68;
+  --selected-item-color: #87abc4;
   --pencil-icon: url("./icons/pencil-tan.svg");
   --broom-icon: url("./icons/broom-tan.svg");
+  --delete-icon: url("./icons/close-circle-outline-tan.svg");
 }
 
 :root.light {
   --background-color: #eed0b8;
   --text-color: black;
+  --selected-item-color: #b48966;
   --pencil-icon: url("./icons/pencil.svg");
   --broom-icon: url("./icons/broom.svg");
+  --delete-icon: url("./icons/close-circle-outline.svg");
 }
 
 body {
@@ -83,9 +87,15 @@ ul {
   margin-right: auto;
 }
 
+.secondary-list input {
+  width: 8em;
+}
+
 .todo-item,
 .todo-item-completed {
+  display: flex;
   padding: 0.25em;
+  align-items: center;
 }
 
 .todo-item-completed {
@@ -104,6 +114,18 @@ ul {
 
 .todo-item-completed .todo-button {
   background-color: rgb(73, 15, 167);
+}
+
+.todo-delete-button {
+  background-image: var(--delete-icon);
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  background-color: var(--background-color, black);
+  background-size: 80%;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-left: auto;
 }
 
 .new-todo-button {
@@ -133,6 +155,7 @@ ul {
   background-color: var(--background-color, black);
   background-size: 80%;
   background-position: center;
+  background-repeat: no-repeat;
 }
 
 .sidebar button {
@@ -145,6 +168,10 @@ ul {
 
 #edit-list {
   background-image: var(--pencil-icon);
+}
+
+.secondary-list #edit-list.selected {
+  background-color: var(--selected-item-color);
 }
 
 #clean-list {

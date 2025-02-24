@@ -5,6 +5,7 @@ export {
   setColorTheme,
   setNewItemClickHandlers,
   setCleanButtonClickHandler,
+  setEditButtonClickHandler,
   updateListUi,
   initializeListSidebar,
 };
@@ -77,6 +78,36 @@ function setCleanButtonClickHandler(cleanCompletedItems) {
   });
 }
 
+function setEditButtonClickHandler(lists) {
+  const listLabelContainer = document.querySelector(
+    ".secondary-list .list-options"
+  );
+  // TODO there's a bug when clicking the clean button when edit is active
+  const editButton = document.querySelector("#edit-list");
+  editButton.addEventListener("click", () => {
+    if (editButton.className === "selected") {
+      editButton.className = "unselected";
+      const listNameInput = document.querySelector(".secondary-list input");
+      const textLabel = document.createElement("span");
+      textLabel.id = "secondary-list-label";
+      textLabel.className = "list-label";
+      // TODO -- less likely to introduce bugs if you just reuse the actual
+      // name from the list rather than passing around these text labels
+      textLabel.textContent =
+        listNameInput.value === ""
+          ? listNameInput.getAttribute("placeholder")
+          : listNameInput.value;
+      listLabelContainer.replaceChild(textLabel, listNameInput);
+    } else {
+      editButton.className = "selected";
+      const listNameInput = document.createElement("input");
+      const listLabel = document.querySelector("#secondary-list-label");
+      listNameInput.setAttribute("placeholder", listLabel.textContent);
+      listLabelContainer.replaceChild(listNameInput, listLabel);
+    }
+  });
+}
+
 function initializeListSidebar(lists) {
   const listUl = document.querySelector(".sidebar ul");
   for (const list in lists) {
@@ -128,8 +159,16 @@ function createNewTodoUi(todo, list) {
   const title = document.createElement("span");
   title.textContent = todo.name;
 
+  const deleteButton = document.createElement("button");
+  deleteButton.className = "todo-delete-button";
+  deleteButton.setAttribute("hidden", "");
+  deleteButton.addEventListener("click", () => {
+    // TODO: implement logic to remove the todo
+  });
+
   todoDiv.appendChild(completedButton);
   todoDiv.appendChild(title);
+  todoDiv.appendChild(deleteButton);
   return todoDiv;
 }
 

@@ -68,6 +68,7 @@ function initializeUi() {
     StorageManager.updateList(lists[listId]);
     DomManager.updateListUi(lists[listId]);
   });
+  DomManager.setEditButtonClickHandler(lists);
   DomManager.initializeListSidebar(lists);
 }
 
