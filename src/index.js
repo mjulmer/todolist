@@ -15,8 +15,8 @@ const domManager = new DomManager(
   (list) => {
     StorageManager.updateList(list);
   },
-  (listId) => {
-    lists[listId].removeCompletedItems();
+  (listId, todoId) => {
+    lists[listId].removeItem(todoId);
     StorageManager.updateList(lists[listId]);
     domManager.updateListUi(lists[listId]);
   }

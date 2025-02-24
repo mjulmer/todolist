@@ -112,7 +112,6 @@ class DomManager {
         listNameInput.setAttribute("placeholder", listLabel.textContent);
         listLabelContainer.replaceChild(listNameInput, listLabel);
 
-        // TODO: adding a new item in edit mode makes them disappear again?
         const deleteButtons = document.querySelectorAll(
           ".secondary-list .todo-delete-button"
         );
@@ -193,7 +192,7 @@ class DomManager {
       deleteButton.setAttribute("hidden", "");
     }
     deleteButton.addEventListener("click", () => {
-      // TODO: implement logic to remove the todo
+      this.removeItemCallback(list.id, todo.id);
     });
 
     todoDiv.appendChild(completedButton);
