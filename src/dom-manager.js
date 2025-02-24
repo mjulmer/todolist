@@ -97,12 +97,27 @@ function setEditButtonClickHandler(lists) {
           ? listNameInput.getAttribute("placeholder")
           : listNameInput.value;
       listLabelContainer.replaceChild(textLabel, listNameInput);
+
+      const deleteButtons = document.querySelectorAll(
+        ".secondary-list .todo-delete-button"
+      );
+      for (const button of deleteButtons) {
+        button.setAttribute("hidden", "");
+      }
     } else {
       editButton.className = "selected";
       const listNameInput = document.createElement("input");
       const listLabel = document.querySelector("#secondary-list-label");
       listNameInput.setAttribute("placeholder", listLabel.textContent);
       listLabelContainer.replaceChild(listNameInput, listLabel);
+
+      // TODO: adding a new item in edit mode makes them disappear again?
+      const deleteButtons = document.querySelectorAll(
+        ".secondary-list .todo-delete-button"
+      );
+      for (const button of deleteButtons) {
+        button.removeAttribute("hidden");
+      }
     }
   });
 }
@@ -164,7 +179,14 @@ function createNewTodoUi(todo, list) {
 
   const deleteButton = document.createElement("button");
   deleteButton.className = "todo-delete-button";
-  deleteButton.setAttribute("hidden", "");
+  const isInEditMode =
+    document.querySelector("#edit-list").className === "selected";
+  const currDisplayedListId = document
+    .querySelector(".secondary-list")
+    .getAttribute("data-id");
+  if (!isInEditMode || list.id !== currDisplayedListId) {
+    deleteButton.setAttribute("hidden", "");
+  }
   deleteButton.addEventListener("click", () => {
     // TODO: implement logic to remove the todo
   });
