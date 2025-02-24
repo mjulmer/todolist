@@ -168,6 +168,7 @@ ul {
 }
 
 #edit-list {
+  margin-left: auto;
   background-image: var(--pencil-icon);
 }
 
