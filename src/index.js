@@ -12,8 +12,6 @@ let dailiesList;
 // Lists are keyed by their ID
 const lists = {};
 
-// initializeWithTrainingWheelsCode();
-
 if (!initializeStateFromStorage()) {
   initializeFirstTimeState();
 }

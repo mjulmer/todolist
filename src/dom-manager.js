@@ -143,7 +143,6 @@ function updateListUi(list) {
   }
 }
 
-// issue is that keys aren't strings and you sometimes query strings
 function createNewTodoUi(todo, list) {
   const todoDiv = document.createElement("div");
   todo.completed

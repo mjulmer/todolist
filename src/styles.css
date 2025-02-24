@@ -164,6 +164,7 @@ ul {
   border: none;
   font-size: 1em;
   padding: 0.5em;
+  color: var(--text-color, white);
 }
 
 #edit-list {
