@@ -2,7 +2,7 @@
 
 import "./styles.css";
 import { TodoList } from "./todo-classes.js";
-import * as DomManager from "./dom-manager.js";
+import { DomManager } from "./dom-manager.js";
 import * as StorageManager from "./storage-manager.js";
 
 const dailiesId = "dailies";
@@ -11,6 +11,16 @@ let dailiesList;
 // lists that can be swapped out in the right panel.
 // Lists are keyed by their ID
 const lists = {};
+const domManager = new DomManager(
+  (list) => {
+    StorageManager.updateList(list);
+  },
+  (listId) => {
+    lists[listId].removeCompletedItems();
+    StorageManager.updateList(lists[listId]);
+    domManager.updateListUi(lists[listId]);
+  }
+);
 
 if (!initializeStateFromStorage()) {
   initializeFirstTimeState();
@@ -30,11 +40,11 @@ function initializeStateFromStorage() {
     const list = StorageManager.getList(listId);
     if (list) {
       lists[listId] = list;
-      DomManager.updateListUi(list);
+      domManager.updateListUi(list);
     }
   }
   dailiesList = StorageManager.getList(dailiesId);
-  DomManager.updateListUi(dailiesList);
+  domManager.updateListUi(dailiesList);
   return true;
 }
 
@@ -43,33 +53,34 @@ function initializeFirstTimeState() {
   dailiesList = new TodoList("Dailies", dailiesId);
   const defaultList = new TodoList("Default", "dropzone");
   lists["dropzone"] = defaultList;
-  DomManager.updateListUi(dailiesList);
-  DomManager.updateListUi(defaultList);
+  domManager.updateListUi(dailiesList);
+  domManager.updateListUi(defaultList);
 }
 
 function initializeUi() {
-  DomManager.setColorTheme(StorageManager.getColorTheme(), (theme) =>
+  domManager.setColorTheme(StorageManager.getColorTheme(), (theme) =>
     StorageManager.setColorTheme(theme)
   );
-  DomManager.setNewItemClickHandlers(
+  domManager.register;
+  domManager.setNewItemClickHandlers(
     (todoName) => {
       dailiesList.addItem(todoName);
       StorageManager.updateList(dailiesList);
-      DomManager.updateListUi(dailiesList);
+      domManager.updateListUi(dailiesList);
     },
     (listId, todoName, todoDescription) => {
       lists[listId].addItem(todoName, todoDescription);
       StorageManager.updateList(lists[listId]);
-      DomManager.updateListUi(lists[listId]);
+      domManager.updateListUi(lists[listId]);
     }
   );
-  DomManager.setCleanButtonClickHandler((listId) => {
+  domManager.setCleanButtonClickHandler((listId) => {
     lists[listId].removeCompletedItems();
     StorageManager.updateList(lists[listId]);
-    DomManager.updateListUi(lists[listId]);
+    domManager.updateListUi(lists[listId]);
   });
-  DomManager.setEditButtonClickHandler(lists);
-  DomManager.initializeListSidebar(lists);
+  domManager.setEditButtonClickHandler(lists);
+  domManager.initializeListSidebar(lists);
 }
 
 // For development, so it's easy to restore a "played-with" state
