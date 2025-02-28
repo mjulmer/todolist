@@ -11,6 +11,7 @@ let dailiesList;
 // lists that can be swapped out in the right panel.
 // Lists are keyed by their ID
 const lists = {};
+let listIds = 1;
 const domManager = new DomManager(
   (list) => {
     StorageManager.updateList(list);
@@ -79,8 +80,18 @@ function initializeUi() {
     StorageManager.updateList(lists[listId]);
     domManager.updateListUi(lists[listId]);
   });
-  domManager.setEditButtonClickHandler(lists);
-  domManager.initializeListSidebar(lists);
+  domManager.setEditButtonClickHandler(lists, (listId) => {
+    StorageManager.updateList(lists[listId]);
+    domManager.updateListUi(lists[listId]);
+  });
+  domManager.initializeListSidebar(lists, (listName) => {
+    const newListId = ++listIds;
+    const newList = new TodoList(listName, newListId);
+    lists[newListId] = newList;
+    StorageManager.updateListofListIds(lists);
+    StorageManager.updateList(newList);
+    domManager.updateListUi(newList);
+  });
 }
 
 // For development, so it's easy to restore a "played-with" state

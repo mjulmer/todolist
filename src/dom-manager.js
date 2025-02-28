@@ -79,7 +79,7 @@ class DomManager {
     });
   }
 
-  setEditButtonClickHandler(lists) {
+  setEditButtonClickHandler(lists, onListChange) {
     const listLabelContainer = document.querySelector(
       ".secondary-list .list-options"
     );
@@ -105,6 +105,10 @@ class DomManager {
         for (const button of deleteButtons) {
           button.setAttribute("hidden", "");
         }
+
+        onListChange(
+          document.querySelector(".secondary-list").getAttribute("data-id")
+        );
       } else {
         editButton.className = "selected";
         const listNameInput = document.createElement("input");
@@ -122,8 +126,27 @@ class DomManager {
     });
   }
 
-  initializeListSidebar(lists) {
+  initializeListSidebar(lists, onClickNewList) {
+    this.updateListsInSidebar(lists);
+
+    document.querySelector(".new-list-button").addEventListener("click", () => {
+      document.querySelector("#new-list-form").reset();
+      document.querySelector(".newListDialog").showModal();
+    });
+    document
+      .querySelector("#new-list-submit")
+      .addEventListener("click", (event) => {
+        event.preventDefault();
+
+        onClickNewList(document.querySelector("#listName").value);
+        this.updateListsInSidebar(lists);
+        document.querySelector(".newListDialog").close();
+      });
+  }
+
+  updateListsInSidebar(lists) {
     const listUl = document.querySelector(".sidebar ul");
+    listUl.replaceChildren();
     for (const list in lists) {
       const listElement = document.createElement("button");
       listElement.textContent = lists[list].name;
@@ -137,7 +160,7 @@ class DomManager {
 
   updateListUi(list) {
     if (list === undefined) {
-      log.error("updateListUi called on undefined list.");
+      console.error("updateListUi called on undefined list.");
       return;
     }
     if (list.id !== "dailies") {
@@ -150,6 +173,15 @@ class DomManager {
       document
         .querySelector(".secondary-list")
         .setAttribute("data-id", list.id);
+
+      // On list updates after the first render, change the list title
+      // in the sidebar if needed.
+      const listSidebarButton = document.querySelector(
+        '.sidebar ul button[data-id="' + String(list.id) + '"]'
+      );
+      if (listSidebarButton != null) {
+        listSidebarButton.textContent = list.name;
+      }
     } else {
       document.querySelector(".dailies").setAttribute("data-id", list.id);
     }

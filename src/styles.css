@@ -128,7 +128,8 @@ ul {
   margin-left: auto;
 }
 
-.new-todo-button {
+.new-todo-button,
+.new-list-button {
   width: fit-content;
   padding: 0.5em 1em;
   margin-top: clamp(1em, 5em, 25vh);
@@ -158,7 +159,7 @@ ul {
   background-repeat: no-repeat;
 }
 
-.sidebar button {
+.sidebar ul button {
   display: block;
   background-color: var(--background-color, black);
   border: none;

@@ -31,6 +31,7 @@
           <span class="list-label">Lists</span>
         </div>
         <ul></ul>
+        <button class="new-list-button">Add list</button>
       </div>
     </div>
     <dialog class="newDailyDialog">
@@ -44,6 +45,12 @@
         <input type="text" id="todoName" placeholder="Name" />
         <input type="text" id="todoDescription" placeholder="Description" />
         <button type="submit" id="new-todo-submit">Add new item</button>
+      </form>
+    </dialog>
+    <dialog class="newListDialog">
+      <form id="new-list-form" action="/fake/server/action" method="post">
+        <input type="text" id="listName" placeholder="Name" />
+        <button type="submit" id="new-list-submit">Add new list</button>
       </form>
     </dialog>
   </body>
