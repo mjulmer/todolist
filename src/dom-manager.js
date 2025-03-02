@@ -1,14 +1,17 @@
 "use strict";
 
+import { ModalWithScrim } from "./modal-with-scrim.js";
 export { DomManager };
 
 class DomManager {
   updateListCallback;
   removeItemCallback;
+  modalWithScrim;
 
   constructor(updateListCallback, removeItemCallback) {
     this.updateListCallback = updateListCallback;
     this.removeItemCallback = removeItemCallback;
+    this.modalWithScrim = new ModalWithScrim();
   }
 
   setColorTheme(theme, onThemeChange) {
@@ -212,6 +215,11 @@ class DomManager {
 
     const title = document.createElement("span");
     title.textContent = todo.name;
+    // TODO: check if this will work if the todo state mutates, or if it needs
+    // a new lists object from index.js and a set todo ID to look up
+    title.addEventListener("click", () => {
+      this.modalWithScrim.showModal(this.getExpandedTodoView(todo));
+    });
 
     const deleteButton = document.createElement("button");
     deleteButton.className = "todo-delete-button";
@@ -240,5 +248,19 @@ class DomManager {
       : (todoDiv.className = "todo-item");
     todo.completed = !todo.completed;
     this.updateListCallback(list);
+  }
+
+  getExpandedTodoView(todo) {
+    const todoContainer = document.createElement("div");
+
+    const title = document.createElement("p");
+    title.textContent = todo.name;
+
+    const description = document.createElement("p");
+    description.textContent = todo.description;
+
+    todoContainer.appendChild(title);
+    todoContainer.appendChild(description);
+    return todoContainer;
   }
 }

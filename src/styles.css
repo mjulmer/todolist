@@ -180,3 +180,31 @@ ul {
 #clean-list {
   background-image: var(--broom-icon);
 }
+
+#full-screen-scrim {
+  position: absolute;
+  background-color: #6200ff20;
+  width: 105%;
+  height: 105%;
+  top: -8px;
+  left: -8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Allows a flex container to be hidden with the hidden attribute:
+https://stackoverflow.com/a/48936804 */
+[hidden] {
+  display: none !important;
+}
+
+/* TODO: adjust offsets to center the item based on its width
+ and height */
+.modal-with-scrim-modal {
+  padding: 2rem;
+  background-color: aliceblue;
+  border-radius: 10px;
+  width: 40vw;
+  height: 40vh;
+}
