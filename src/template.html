@@ -43,7 +43,8 @@
     <dialog class="newTodoDialog">
       <form id="new-todo-form" action="/fake/server/action" method="post">
         <input type="text" id="todoName" placeholder="Name" />
-        <input type="text" id="todoDescription" placeholder="Description" />
+        <label for="todoDescription">Description</label>
+        <textarea id="todoDescription" cols="30" rows="8"></textarea>
         <label for="todoDate">Due date</label>
         <input type="date" name="date" id="todoDate" />
         <label for="todoPriority">Priority</label>

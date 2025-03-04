@@ -181,6 +181,18 @@ ul {
   background-image: var(--broom-icon);
 }
 
+form input,
+form button,
+form textarea,
+form select {
+  display: block;
+  margin-bottom: 1em;
+}
+
+textarea {
+  resize: none;
+}
+
 #full-screen-scrim {
   position: absolute;
   background-color: #6200ff20;
