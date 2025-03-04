@@ -10,5 +10,8 @@
   "scripts": {
     "build": "webpack --config webpack.prod.js",
     "dev": "webpack serve --config webpack.dev.js"
+  },
+  "dependencies": {
+    "date-fns": "^4.1.0"
   }
 }

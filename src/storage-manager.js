@@ -95,7 +95,9 @@ function parseTodoItemFromJson(jsonObject) {
   const todo = new TodoItem(
     jsonObject.id,
     jsonObject.name,
-    jsonObject.description
+    jsonObject.description,
+    jsonObject.dueDate,
+    jsonObject.priority
   );
   todo.completed = jsonObject.completed;
   return todo;

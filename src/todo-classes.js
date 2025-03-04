@@ -4,12 +4,16 @@ class TodoItem {
   id;
   name;
   description;
+  dueDate;
+  priority;
   completed = false;
 
-  constructor(id, name, description) {
+  constructor(id, name, description, dueDate, priority) {
     this.id = id;
     this.name = name;
     this.description = description;
+    this.dueDate = dueDate;
+    this.priority = priority;
   }
 }
 
@@ -24,9 +28,15 @@ class TodoList {
     this.id = id;
   }
 
-  addItem(name, description) {
+  addItem(name, description, dueDate, priority) {
     const newId = this.itemIdCount++;
-    this.todos[newId] = new TodoItem(newId, name, description);
+    this.todos[newId] = new TodoItem(
+      newId,
+      name,
+      description,
+      dueDate,
+      priority
+    );
   }
 
   removeItem(id) {

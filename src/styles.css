@@ -201,6 +201,7 @@ https://stackoverflow.com/a/48936804 */
 
 /* TODO: adjust offsets to center the item based on its width
  and height */
+/* TODO: a little drop shadow would make this look nicer. */
 .modal-with-scrim-modal {
   padding: 2rem;
   background-color: aliceblue;

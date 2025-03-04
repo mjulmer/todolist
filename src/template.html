@@ -44,6 +44,15 @@
       <form id="new-todo-form" action="/fake/server/action" method="post">
         <input type="text" id="todoName" placeholder="Name" />
         <input type="text" id="todoDescription" placeholder="Description" />
+        <label for="todoDate">Due date</label>
+        <input type="date" name="date" id="todoDate" />
+        <label for="todoPriority">Priority</label>
+        <select id="todoPriority" name="priority">
+          <option>0</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+        </select>
         <button type="submit" id="new-todo-submit">Add new item</button>
       </form>
     </dialog>

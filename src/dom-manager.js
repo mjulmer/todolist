@@ -67,7 +67,9 @@ class DomManager {
       onClickNewTodoButton(
         document.querySelector(".secondary-list").getAttribute("data-id"),
         document.querySelector("#todoName").value,
-        document.querySelector("#todoDescription").value
+        document.querySelector("#todoDescription").value,
+        document.querySelector("#todoDate").value,
+        document.querySelector("#todoPriority").value
       );
       document.querySelector(".newTodoDialog").close();
     });

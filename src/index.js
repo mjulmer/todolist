@@ -69,8 +69,8 @@ function initializeUi() {
       StorageManager.updateList(dailiesList);
       domManager.updateListUi(dailiesList);
     },
-    (listId, todoName, todoDescription) => {
-      lists[listId].addItem(todoName, todoDescription);
+    (listId, todoName, todoDescription, dueDate, priority) => {
+      lists[listId].addItem(todoName, todoDescription, dueDate, priority);
       StorageManager.updateList(lists[listId]);
       domManager.updateListUi(lists[listId]);
     }
