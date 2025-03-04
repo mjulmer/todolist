@@ -2,6 +2,7 @@
   --background-color: black;
   --text-color: #867c68;
   --selected-item-color: #87abc4;
+  --sidebar-background-color: #201308;
   --modal-background-color: #535353;
   --pencil-icon: url("./icons/pencil-tan.svg");
   --broom-icon: url("./icons/broom-tan.svg");
@@ -12,6 +13,7 @@
   --background-color: #eed0b8;
   --text-color: black;
   --selected-item-color: #b48966;
+  --sidebar-background-color: burlywood;
   --modal-background-color: aliceblue;
   --pencil-icon: url("./icons/pencil.svg");
   --broom-icon: url("./icons/broom.svg");
@@ -23,14 +25,16 @@ body {
   color: var(--text-color, white);
   display: grid;
   margin: 0;
+  height: 100vh;
+  width: 100vw;
   gap: 3rem;
-  /* grid-template-columns: 1fr 2fr; */
   grid-template-rows: 50px 1fr;
+  grid-template-columns: 10rem 1fr;
   font-family: "Verdana", "Geneva", "Tahoma", sans-serif;
 }
 
 #header {
-  grid-column: 1 / -1;
+  grid-column: 2 / -1;
   display: flex;
   justify-content: end;
   padding: 0.5rem;
@@ -55,6 +59,12 @@ body {
 
 ul {
   padding: 0;
+}
+
+.sidebar {
+  grid-row: 1 / -1;
+  background-color: var(--sidebar-background-color, black);
+  padding: 1rem;
 }
 
 .flex {
@@ -164,7 +174,7 @@ ul {
 
 .sidebar ul button {
   display: block;
-  background-color: var(--background-color, black);
+  background-color: var(--sidebar-background-color, black);
   border: none;
   font-size: 1em;
   padding: 0.5em;
