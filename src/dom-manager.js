@@ -256,10 +256,18 @@ class DomManager {
     const todoContainer = document.createElement("div");
 
     const title = document.createElement("p");
+    title.className = "expandedTodoTitle";
     title.textContent = todo.name;
 
+    const descriptionContainer = document.createElement("div");
+    descriptionContainer.className = "expandedTodoDescriptionContainer";
+    const descriptionLabel = document.createElement("p");
+    descriptionLabel.className = "expandedTodoDescriptionLabel";
+    descriptionLabel.textContent = "Description";
     const description = document.createElement("p");
+    description.className = "expandedTodoDescription";
     description.textContent = todo.description;
+    descriptionContainer.appendChild(description);
 
     const dueDate = document.createElement("p");
     if (todo.dueDate === undefined || todo.dueDate === "") {
@@ -268,8 +276,8 @@ class DomManager {
       dueDate.textContent = "Due: " + todo.dueDate;
     }
 
-    // TODO: might want to change this if dailies never
-    // have a priority; that's a product call.
+    // TODO: might want to change whether text is displayed when there's no
+    // priority if dailies never have a priority; that's a product call.
     const priority = document.createElement("p");
     if (todo.priority === undefined || todo.priority === "") {
       priority.textContent = "No priority set.";
@@ -278,7 +286,10 @@ class DomManager {
     }
 
     todoContainer.appendChild(title);
-    todoContainer.appendChild(description);
+    if (todo.description !== "") {
+      todoContainer.appendChild(descriptionLabel);
+      todoContainer.appendChild(descriptionContainer);
+    }
     todoContainer.appendChild(dueDate);
     todoContainer.appendChild(priority);
 

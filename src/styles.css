@@ -2,6 +2,7 @@
   --background-color: black;
   --text-color: #867c68;
   --selected-item-color: #87abc4;
+  --modal-background-color: #535353;
   --pencil-icon: url("./icons/pencil-tan.svg");
   --broom-icon: url("./icons/broom-tan.svg");
   --delete-icon: url("./icons/close-circle-outline-tan.svg");
@@ -11,6 +12,7 @@
   --background-color: #eed0b8;
   --text-color: black;
   --selected-item-color: #b48966;
+  --modal-background-color: aliceblue;
   --pencil-icon: url("./icons/pencil.svg");
   --broom-icon: url("./icons/broom.svg");
   --delete-icon: url("./icons/close-circle-outline.svg");
@@ -216,8 +218,30 @@ https://stackoverflow.com/a/48936804 */
 /* TODO: a little drop shadow would make this look nicer. */
 .modal-with-scrim-modal {
   padding: 2rem;
-  background-color: aliceblue;
+  background-color: var(--modal-background-color, black);
+  color: var(--text-color);
   border-radius: 10px;
   width: 40vw;
   height: 40vh;
+}
+
+.expandedTodoTitle {
+  margin-top: 0;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.expandedTodoDescriptionContainer {
+  width: min(20em, 35vw);
+  border: solid 2px #b9b9b9;
+  border-radius: 5px;
+  padding: 0.5rem;
+}
+
+.expandedTodoDescriptionLabel {
+  margin: 0.1rem;
+}
+
+.expandedTodoDescription {
+  margin: 0;
 }
