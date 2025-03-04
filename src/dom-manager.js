@@ -261,8 +261,27 @@ class DomManager {
     const description = document.createElement("p");
     description.textContent = todo.description;
 
+    const dueDate = document.createElement("p");
+    if (todo.dueDate === undefined || todo.dueDate === "") {
+      dueDate.textContent = "No due date set.";
+    } else {
+      dueDate.textContent = "Due: " + todo.dueDate;
+    }
+
+    // TODO: might want to change this if dailies never
+    // have a priority; that's a product call.
+    const priority = document.createElement("p");
+    if (todo.priority === undefined || todo.priority === "") {
+      priority.textContent = "No priority set.";
+    } else {
+      priority.textContent = "P" + todo.priority;
+    }
+
     todoContainer.appendChild(title);
     todoContainer.appendChild(description);
+    todoContainer.appendChild(dueDate);
+    todoContainer.appendChild(priority);
+
     return todoContainer;
   }
 }
