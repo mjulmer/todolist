@@ -1,6 +1,5 @@
 "use strict";
 
-import { da } from "date-fns/locale";
 import { ModalWithScrim } from "./modal-with-scrim.js";
 export { DomManager };
 
