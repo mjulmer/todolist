@@ -181,7 +181,8 @@ ul {
   color: var(--text-color, white);
 }
 
-#edit-list {
+#edit-list,
+#edit-item {
   margin-left: auto;
   background-image: var(--pencil-icon);
 }
@@ -253,4 +254,18 @@ https://stackoverflow.com/a/48936804 */
 
 .expandedTodoDescription {
   margin: 0;
+}
+
+.expanded-todo-edit-icon-container {
+  display: flex;
+}
+
+#edit-item {
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  background-color: var(--modal-background-color, black);
+  background-size: 80%;
+  background-position: center;
+  background-repeat: no-repeat;
 }

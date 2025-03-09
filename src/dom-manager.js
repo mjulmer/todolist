@@ -253,23 +253,14 @@ class DomManager {
   }
 
   getExpandedTodoView(todo) {
-    const todoContainer = document.createElement("div");
-
-    const title = document.createElement("p");
-    title.className = "expandedTodoTitle";
+    const todoContainer = document.querySelector("#expanded-view-mode");
+    const title = document.querySelector(".expandedTodoTitle");
     title.textContent = todo.name;
 
-    const descriptionContainer = document.createElement("div");
-    descriptionContainer.className = "expandedTodoDescriptionContainer";
-    const descriptionLabel = document.createElement("p");
-    descriptionLabel.className = "expandedTodoDescriptionLabel";
-    descriptionLabel.textContent = "Description";
-    const description = document.createElement("p");
-    description.className = "expandedTodoDescription";
+    const description = document.querySelector(".expandedTodoDescription");
     description.textContent = todo.description;
-    descriptionContainer.appendChild(description);
 
-    const dueDate = document.createElement("p");
+    const dueDate = document.querySelector(".dueDate");
     if (todo.dueDate === undefined || todo.dueDate === "") {
       dueDate.textContent = "No due date set.";
     } else {
@@ -278,20 +269,12 @@ class DomManager {
 
     // TODO: might want to change whether text is displayed when there's no
     // priority if dailies never have a priority; that's a product call.
-    const priority = document.createElement("p");
+    const priority = document.querySelector(".priority");
     if (todo.priority === undefined || todo.priority === "") {
       priority.textContent = "No priority set.";
     } else {
       priority.textContent = "P" + todo.priority;
     }
-
-    todoContainer.appendChild(title);
-    if (todo.description !== "") {
-      todoContainer.appendChild(descriptionLabel);
-      todoContainer.appendChild(descriptionContainer);
-    }
-    todoContainer.appendChild(dueDate);
-    todoContainer.appendChild(priority);
 
     return todoContainer;
   }
