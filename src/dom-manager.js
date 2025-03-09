@@ -276,6 +276,43 @@ class DomManager {
       priority.textContent = "P" + todo.priority;
     }
 
+    document.querySelector("#edit-item").addEventListener("click", () => {
+      this.modalWithScrim.showModal(this.getEditTodoView(todo));
+    });
+
+    // If the click bubbles up to the scrim, the modal/scrim will be hidden.
+    todoContainer.addEventListener("click", (event) => {
+      event.stopPropagation();
+    });
+    return todoContainer;
+  }
+
+  getEditTodoView(todo) {
+    const todoContainer = document.querySelector("#expanded-edit-mode");
+    const title = document.querySelector("#editTodoName");
+    title.value = todo.name;
+
+    const description = document.querySelector("#editTodoDescription");
+    description.value = todo.description;
+
+    const dueDate = document.querySelector("#editTodoDate");
+    dueDate.value = todo.dueDate;
+
+    const priority = document.querySelector("#editTodoPriority");
+    priority.value = todo.priority;
+
+    document
+      .querySelector("#edit-todo-submit")
+      .addEventListener("click", () => {
+        // TODO: also actually make the changes
+        this.modalWithScrim.showModal(this.getExpandedTodoView(todo));
+      });
+
+    // If the click bubbles up to the scrim, the modal/scrim will be hidden.
+    todoContainer.addEventListener("click", (event) => {
+      event.stopPropagation();
+    });
+
     return todoContainer;
   }
 }

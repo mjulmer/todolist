@@ -74,6 +74,21 @@
         <p class="dueDate"></p>
         <p class="priority"></p>
       </div>
+      <div id="expanded-edit-mode">
+        <input type="text" id="editTodoName" placeholder="Name" />
+        <label for="editTodoDescription">Description</label>
+        <textarea id="editTodoDescription" cols="30" rows="8"></textarea>
+        <label for="editTodoDate">Due date</label>
+        <input type="date" name="date" id="editTodoDate" />
+        <label for="editTodoPriority">Priority</label>
+        <select id="editTodoPriority" name="priority">
+          <option class="P0">0</option>
+          <option class="P1">1</option>
+          <option class="P2">2</option>
+          <option class="P3">3</option>
+        </select>
+        <button type="submit" id="edit-todo-submit">Save changes</button>
+      </div>
     </div>
   </body>
 </html>

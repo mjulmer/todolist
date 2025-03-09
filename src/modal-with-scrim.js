@@ -20,6 +20,13 @@ class ModalWithScrim {
     document.querySelector("body").appendChild(this.scrim);
   }
 
+  /** Show divToShow in the center of the screen with a scrim behind it.
+   * Any clicks on the scrim will dismiss the scrim and modal.
+   *
+   * divToShow should be an element taken from the DOM, not created
+   * anew in the javascript -- it's appended, hidden, to the end of the
+   * body for future access, which could cause unintended behavior.
+   */
   showModal(divToShow) {
     // In case this is called twice in a row and previous modal is shown.
     this.hideModal();
@@ -35,6 +42,9 @@ class ModalWithScrim {
     console.log("hide modal called");
     if (this.modal !== undefined) {
       this.modal.setAttribute("hidden", "");
+      // Ensure the modal can be accessed again if a different view is used
+      // as the next modal (since all children are removed from the scrim).
+      document.querySelector("body").appendChild(this.modal);
     }
     if (this.scrim !== undefined) {
       this.scrim.setAttribute("hidden", "");
