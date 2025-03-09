@@ -92,6 +92,18 @@ function initializeUi() {
     StorageManager.updateList(newList);
     domManager.updateListUi(newList);
   });
+  domManager.setExpandedTodoSaveChangesButtonClickHandler(
+    lists,
+    (todoId, listId, todoName, todoDescription, dueDate, priority) => {
+      const todo = lists[listId]["todos"][todoId];
+      todo.name = todoName;
+      todo.description = todoDescription;
+      todo.dueDate = dueDate;
+      todo.priority = priority;
+      StorageManager.updateList(lists[listId]);
+      domManager.updateListUi(lists[listId]);
+    }
+  );
 }
 
 // For development, so it's easy to restore a "played-with" state

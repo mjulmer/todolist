@@ -131,6 +131,36 @@ class DomManager {
     });
   }
 
+  setExpandedTodoSaveChangesButtonClickHandler(lists, onClickSaveChanges) {
+    document
+      .querySelector("#edit-todo-submit")
+      .addEventListener("click", (event) => {
+        event.preventDefault();
+
+        const todoId = document
+          .querySelector("#expanded-edit-mode")
+          .getAttribute("data-todo-id");
+        const listId = document
+          .querySelector("#expanded-edit-mode")
+          .getAttribute("data-list-id");
+
+        onClickSaveChanges(
+          todoId,
+          listId,
+          document.querySelector("#editTodoName").value,
+          document.querySelector("#editTodoDescription").value,
+          document.querySelector("#editTodoDate").value,
+          document.querySelector("#editTodoPriority").value
+        );
+        this.modalWithScrim.showModal(
+          this.getExpandedTodoView(
+            lists[listId]["todos"][todoId],
+            lists[listId]
+          )
+        );
+      });
+  }
+
   initializeListSidebar(lists, onClickNewList) {
     this.updateListsInSidebar(lists);
 
@@ -220,7 +250,7 @@ class DomManager {
     // TODO: check if this will work if the todo state mutates, or if it needs
     // a new lists object from index.js and a set todo ID to look up
     title.addEventListener("click", () => {
-      this.modalWithScrim.showModal(this.getExpandedTodoView(todo));
+      this.modalWithScrim.showModal(this.getExpandedTodoView(todo, list));
     });
 
     const deleteButton = document.createElement("button");
@@ -252,8 +282,9 @@ class DomManager {
     this.updateListCallback(list);
   }
 
-  getExpandedTodoView(todo) {
+  getExpandedTodoView(todo, list) {
     const todoContainer = document.querySelector("#expanded-view-mode");
+    // todoContainer.setAttribute("data-id", todo.id);
     const title = document.querySelector(".expandedTodoTitle");
     title.textContent = todo.name;
 
@@ -277,7 +308,7 @@ class DomManager {
     }
 
     document.querySelector("#edit-item").addEventListener("click", () => {
-      this.modalWithScrim.showModal(this.getEditTodoView(todo));
+      this.modalWithScrim.showModal(this.getEditTodoView(todo, list));
     });
 
     // If the click bubbles up to the scrim, the modal/scrim will be hidden.
@@ -287,8 +318,10 @@ class DomManager {
     return todoContainer;
   }
 
-  getEditTodoView(todo) {
+  getEditTodoView(todo, list) {
     const todoContainer = document.querySelector("#expanded-edit-mode");
+    todoContainer.setAttribute("data-list-id", list.id);
+    todoContainer.setAttribute("data-todo-id", todo.id);
     const title = document.querySelector("#editTodoName");
     title.value = todo.name;
 
@@ -301,12 +334,8 @@ class DomManager {
     const priority = document.querySelector("#editTodoPriority");
     priority.value = todo.priority;
 
-    document
-      .querySelector("#edit-todo-submit")
-      .addEventListener("click", () => {
-        // TODO: also actually make the changes
-        this.modalWithScrim.showModal(this.getExpandedTodoView(todo));
-      });
+    // Since the click handler requires changes to the data model, it's registered
+    // with a callback and should alreay be attached.
 
     // If the click bubbles up to the scrim, the modal/scrim will be hidden.
     todoContainer.addEventListener("click", (event) => {
