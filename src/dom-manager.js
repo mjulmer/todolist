@@ -1,5 +1,6 @@
 "use strict";
 
+import { da } from "date-fns/locale";
 import { ModalWithScrim } from "./modal-with-scrim.js";
 export { DomManager };
 
@@ -131,7 +132,11 @@ class DomManager {
     });
   }
 
-  setExpandedTodoSaveChangesButtonClickHandler(lists, onClickSaveChanges) {
+  setExpandedTodoSaveChangesButtonClickHandler(
+    lists,
+    dailies,
+    onClickSaveChanges
+  ) {
     document
       .querySelector("#edit-todo-submit")
       .addEventListener("click", (event) => {
@@ -143,6 +148,7 @@ class DomManager {
         const listId = document
           .querySelector("#expanded-edit-mode")
           .getAttribute("data-list-id");
+        const list = listId == dailies.id ? dailies : lists[listId];
 
         onClickSaveChanges(
           todoId,
@@ -153,10 +159,7 @@ class DomManager {
           document.querySelector("#editTodoPriority").value
         );
         this.modalWithScrim.showModal(
-          this.getExpandedTodoView(
-            lists[listId]["todos"][todoId],
-            lists[listId]
-          )
+          this.getExpandedTodoView(list["todos"][todoId], list)
         );
       });
   }
@@ -326,7 +329,7 @@ class DomManager {
     title.value = todo.name;
 
     const description = document.querySelector("#editTodoDescription");
-    description.value = todo.description;
+    description.value = todo.description == undefined ? "" : todo.description;
 
     const dueDate = document.querySelector("#editTodoDate");
     dueDate.value = todo.dueDate;

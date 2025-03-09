@@ -94,14 +94,16 @@ function initializeUi() {
   });
   domManager.setExpandedTodoSaveChangesButtonClickHandler(
     lists,
+    dailiesList,
     (todoId, listId, todoName, todoDescription, dueDate, priority) => {
-      const todo = lists[listId]["todos"][todoId];
+      const list = listId == dailiesId ? dailiesList : lists[listId];
+      const todo = list["todos"][todoId];
       todo.name = todoName;
       todo.description = todoDescription;
       todo.dueDate = dueDate;
       todo.priority = priority;
-      StorageManager.updateList(lists[listId]);
-      domManager.updateListUi(lists[listId]);
+      StorageManager.updateList(list);
+      domManager.updateListUi(list);
     }
   );
 }
